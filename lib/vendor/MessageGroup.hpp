@@ -7,13 +7,13 @@ class MessageGroup : public Message
   public:
     class MessageItem {
       public:
-        MessageItem(Message *message, MessageItem *prev);
+        MessageItem(Message *message);
         ~MessageItem();
 
         MessageItem *next;
 
         const Message *message;
-    }
+    };
 
     MessageGroup(Message *firstMessage);
     ~MessageGroup();
@@ -23,4 +23,4 @@ class MessageGroup : public Message
 
   protected:
     MessageItem   first;
-}
+};

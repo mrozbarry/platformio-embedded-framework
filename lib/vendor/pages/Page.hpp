@@ -1,4 +1,5 @@
 #include <Lifecycle.hpp>
+#include <MessageGroup.hpp>
 
 #pragma once
 
@@ -21,6 +22,8 @@ namespace Pages {
 
           MessageGroup  *group;
       };
+
+      // Render::output->cursor(0, 0)->write("hello world", 13)
 
       Page();
       virtual ~Page();

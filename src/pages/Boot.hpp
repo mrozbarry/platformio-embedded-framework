@@ -76,8 +76,11 @@ namespace Pages {
         }
       }
 
-      void render()
+      Page::Render *render()
       {
+        return Page::Render::output()
+          ->cursor(5, 0)
+          ->write("Booting...", 10);
         // root.publish(new Outputs::Output::MoveCursor(5, 0));
         // root.publish(new Outputs::Output::Write("Booting...", 10));
         // root.publish(new Outputs::Output::MoveCursor(1, 2));
