@@ -1,4 +1,4 @@
-#include <lib/Lifecycle.hpp>
+#include <Lifecycle.hpp>
 #include <Message.hpp>
 #include <pages/Page.hpp>
 
@@ -15,8 +15,6 @@ class Navigator : public Lifecycle
 
     Navigator();
     ~Navigator();
-
-    void showPage(Pages::Page *page);
 
     void init(unsigned long ms);
     void tick(unsigned long ms);

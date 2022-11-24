@@ -1,6 +1,5 @@
-#include <lib/Navigator.hpp>
+#include <Navigator.hpp>
 #include <pages/Page.hpp>
-#include <Root.hpp>
 
 Navigator::Navigator()
   : Lifecycle()
@@ -19,11 +18,6 @@ Navigator::ShowPage::ShowPage(Pages::Page *page, unsigned long when)
   : Message(Message::Type::NAVIGATE_SHOW_PAGE, when)
   , page(page)
 {}
-
-void Navigator::showPage(Pages::Page *page)
-{
-  root.publish(new Navigator::ShowPage(page));
-}
 
 void Navigator::init(unsigned long ms)
 {
@@ -65,5 +59,4 @@ void Navigator::onShowPage(Navigator::ShowPage *showPageMessage)
   page = (Pages::Page *)showPageMessage->page;
   page->init(now);
   page->show();
-  page->render();
 }

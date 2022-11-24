@@ -9,6 +9,8 @@ class Message
     enum class Type {
       NOOP = 0,
 
+      MESSAGE_GROUP,
+
       BUTTON_PRESS,
       BUTTON_LONGPRESS,
 

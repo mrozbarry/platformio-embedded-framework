@@ -1,6 +1,6 @@
 #include <pages/Scrollable.hpp>
 #include <outputs/Output.hpp>
-#include <Root.hpp>
+#include <Application.hpp>
 
 namespace Pages {
   Scrollable::Scrollable(uint8_t rows)
@@ -21,15 +21,15 @@ namespace Pages {
 
   void Scrollable::render()
   {
-    root.publishNow(new Outputs::Output::Clear());
+    // root.publishNow(new Outputs::Output::Clear());
 
     for (unsigned int i = 0; i < 4; i++) {
       unsigned int index = offset + i;
       if (index >= SCROLLABLE_ITEMS_COUNT) break;
 
-      root.publish(new Outputs::Output::MoveCursor(0, i));
-      root.publish(new Outputs::Output::Write(cursor == i ? ">" : " ", 1));
-      root.publish(new Outputs::Output::Write(items[index], 9));
+      // root.publish(new Outputs::Output::MoveCursor(0, i));
+      // root.publish(new Outputs::Output::Write(cursor == i ? ">" : " ", 1));
+      // root.publish(new Outputs::Output::Write(items[index], 9));
     }
   }
 

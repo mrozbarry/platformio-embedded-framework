@@ -1,6 +1,6 @@
 #include <inputs/Button.hpp>
 #include <Message.hpp>
-#include <Root.hpp>
+#include <Application.hpp>
 
 namespace Inputs {
   Button::Button(Button::Type type, unsigned long minMsLongPress)
@@ -52,9 +52,9 @@ namespace Inputs {
     pressedAt = 0;
 
     if (duration >= minMsLongPress) {
-      root.publish(new LongPress(type));
+      Application::get()->queue(new LongPress(type));
     } else {
-      root.publish(new Press(type));
+      Application::get()->queue(new Press(type));
     }
   }
 }

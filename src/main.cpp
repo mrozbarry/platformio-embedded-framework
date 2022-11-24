@@ -1,13 +1,16 @@
 #include <Platform.hpp>
+#include <Application.hpp>
 #include <Root.hpp>
 #include <pages/Boot.hpp>
-#include <lib/Navigator.hpp>
+#include <Navigator.hpp>
 
 void setup()
 {
-  root.init(millis());
+  Application *root = Application::set(new Root());
 
-  root.publishNow(
+  root->init(millis());
+
+  root->queue(
     new Navigator::ShowPage(
       new Pages::Boot(2000)
     )
@@ -16,7 +19,9 @@ void setup()
 
 void loop()
 {
-  root.tick(millis());
+  Application *root = Application::get();
+  root->handleMessages(millis());
+  root->tick(millis());
 }
 
 #ifdef NATIVE_BUILD

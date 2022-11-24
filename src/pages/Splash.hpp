@@ -1,8 +1,8 @@
 #include <pages/Page.hpp>
 #include <pages/Home.hpp>
-#include <lib/Navigator.hpp>
+#include <Navigator.hpp>
 #include <inputs/TempSensor.hpp>
-#include <Root.hpp>
+#include <Application.hpp>
 
 #pragma once
 
@@ -19,7 +19,7 @@ namespace Pages {
 
       void init(unsigned long ms)
       {
-        root.publish(new Navigator::ShowPage(new Home(), ms + milliseconds));
+        Application::get()->queue(new Navigator::ShowPage(new Home(), ms + milliseconds));
       }
 
     private:

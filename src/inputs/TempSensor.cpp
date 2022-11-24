@@ -1,6 +1,5 @@
 #include <inputs/TempSensor.hpp>
-#include <Root.hpp>
-#include <lib/Debug.hpp>
+#include <Application.hpp>
 
 namespace Inputs {
   TempSensor::TempSensor(TempSensor::Type type, uint8_t pin, unsigned long readThrottle = 2000)
@@ -54,7 +53,7 @@ namespace Inputs {
 
     if (!hasBeenReadAtLeastOnce) return;
 
-    root.publish(new TempSensor::Result(type, temp, humidity));
+    Application::get()->queue(new TempSensor::Result(type, temp, humidity));
   }
 
   void TempSensor::init(unsigned long ms)

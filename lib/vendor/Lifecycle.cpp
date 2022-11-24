@@ -1,5 +1,4 @@
-#include <lib/Lifecycle.hpp>
-#include <lib/Debug.hpp>
+#include <Lifecycle.hpp>
 
 Lifecycle::Lifecycle()
 {}

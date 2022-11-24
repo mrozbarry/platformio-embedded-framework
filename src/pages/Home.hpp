@@ -1,5 +1,5 @@
 #include <pages/Page.hpp>
-#include <lib/Lifecycle.hpp>
+#include <Lifecycle.hpp>
 #include <inputs/TempSensor.hpp>
 #include <Message.hpp>
 
@@ -11,7 +11,6 @@ namespace Pages {
     public:
       Home();
 
-      void init(unsigned long ms);
       void message(Message *message);
       void onTempSensorResult(Inputs::TempSensor::Result *resultMessage);
 
