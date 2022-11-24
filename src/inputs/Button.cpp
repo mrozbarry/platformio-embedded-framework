@@ -3,8 +3,9 @@
 #include <Root.hpp>
 
 namespace Inputs {
-  Button::Button(unsigned long minMsLongPress)
+  Button::Button(Button::Type type, unsigned long minMsLongPress)
     : Lifecycle()
+    , type(type)
     , pressedAt(0)
     , isPressed(false)
     , minMsLongPress(minMsLongPress)
@@ -12,6 +13,24 @@ namespace Inputs {
   }
 
   Button::~Button()
+  {}
+
+  Button::ButtonEvent::ButtonEvent(Button::Type which, Message::Type type)
+    : Message(type)
+    , which(which)
+  {}
+
+  bool Button::ButtonEvent::is(Button::Type which)
+  {
+    return this->which == which;
+  }
+
+  Button::Press::Press(Button::Type which)
+    : ButtonEvent(which, Message::Type::BUTTON_PRESS)
+  {}
+
+  Button::LongPress::LongPress(Button::Type which)
+    : ButtonEvent(which, Message::Type::BUTTON_LONGPRESS)
   {}
 
   void Button::init(unsigned long ms)
@@ -33,9 +52,9 @@ namespace Inputs {
     pressedAt = 0;
 
     if (duration >= minMsLongPress) {
-      root.publish(new Message(Message::Type::BUTTON_LONGPRESS));
+      root.publish(new LongPress(type));
     } else {
-      root.publish(new Message(Message::Type::BUTTON_PRESS));
+      root.publish(new Press(type));
     }
   }
 }

@@ -12,7 +12,7 @@ class Message
       BUTTON_PRESS,
       BUTTON_LONGPRESS,
 
-      NAVIGATE_PAGE,
+      NAVIGATE_SHOW_PAGE,
 
       OUTPUT_CLEAR,
       OUTPUT_MOVE_CURSOR,

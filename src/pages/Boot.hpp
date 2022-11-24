@@ -1,9 +1,10 @@
 #include <pages/Page.hpp>
 #include <pages/Home.hpp>
 #include <pages/About.hpp>
-#include <pages/Navigator.hpp>
+#include <lib/Navigator.hpp>
 #include <inputs/TempSensor.hpp>
 #include <Root.hpp>
+#include <lib/Debug.hpp>
 
 #pragma once
 
@@ -66,8 +67,8 @@ namespace Pages {
         }
 
         if (indoor && outdoor) {
-          root.publish(new Pages::Navigator::ShowPage(new Pages::About(), now + milliseconds));
-          root.publish(new Pages::Navigator::ShowPage(new Pages::Home(), now + milliseconds + 5000));
+          root.publish(new Navigator::ShowPage(new Pages::About(), now + milliseconds));
+          root.publish(new Navigator::ShowPage(new Pages::Home(), now + milliseconds + 5000));
           return;
         }
       }

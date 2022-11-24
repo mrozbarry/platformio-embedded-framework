@@ -6,7 +6,34 @@ namespace Inputs
 {
   class Button : public Lifecycle {
     public:
-      Button(unsigned long minMsLongPress = 300);
+      enum class Type {
+        SELECT,
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT,
+      };
+
+      class ButtonEvent : public Message {
+        public:
+          ButtonEvent(Button::Type which, Message::Type type);
+
+          bool is(Button::Type which);
+
+          const Button::Type  which;
+      };
+
+      class Press : public ButtonEvent {
+        public:
+          Press(Button::Type type);
+      };
+
+      class LongPress : public ButtonEvent {
+        public:
+          LongPress(Button::Type type);
+      };
+
+      Button(Type type, unsigned long minMsLongPress = 300);
       ~Button();
 
       void init(unsigned long ms);
@@ -16,8 +43,9 @@ namespace Inputs
       void release(unsigned long ms);
 
     protected:
+      const Type    type;
       unsigned long pressedAt;
-      bool isPressed;
+      bool          isPressed;
       unsigned long minMsLongPress;
   };
 };

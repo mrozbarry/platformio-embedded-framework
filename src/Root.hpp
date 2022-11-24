@@ -1,6 +1,6 @@
 #include <lib/Lifecycle.hpp>
 #include <Message.hpp>
-#include <pages/Navigator.hpp>
+#include <lib/Navigator.hpp>
 #include <outputs/Output.hpp>
 #include <inputs/TempSensor.hpp>
 
@@ -23,7 +23,7 @@ class Root : public Lifecycle
     void handleMessages(unsigned long ms);
 
   protected:
-    Pages::Navigator    navigator;
+    Navigator           navigator;
     Outputs::Output     *output;
     Inputs::TempSensor  indoor;
     Inputs::TempSensor  outdoor;

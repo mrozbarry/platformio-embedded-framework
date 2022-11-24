@@ -33,7 +33,9 @@ namespace Outputs {
 
     // posix/terminal escape for clear/return cursor to top
     // https://stackoverflow.com/a/6487534
+#ifndef DEBUG
     std::cout << "\x1B[2J\x1B[H";
+#endif
 
     drawBar();
     for (uint8_t r = 0; r < height; r++) {

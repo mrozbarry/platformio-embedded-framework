@@ -1,6 +1,6 @@
 #include <pages/Page.hpp>
 #include <pages/Home.hpp>
-#include <pages/Navigator.hpp>
+#include <lib/Navigator.hpp>
 #include <inputs/TempSensor.hpp>
 #include <Root.hpp>
 

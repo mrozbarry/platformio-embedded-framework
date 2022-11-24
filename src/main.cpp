@@ -1,13 +1,14 @@
 #include <Platform.hpp>
 #include <Root.hpp>
 #include <pages/Boot.hpp>
+#include <lib/Navigator.hpp>
 
 void setup()
 {
   root.init(millis());
 
   root.publishNow(
-    new Pages::Navigator::ShowPage(
+    new Navigator::ShowPage(
       new Pages::Boot(2000)
     )
   );

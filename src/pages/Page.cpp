@@ -15,8 +15,6 @@ namespace Pages {
   void Page::show()
   {
     isMounted = true;
-    root.publish(new Outputs::Output::Clear());
-    render();
   }
 
   void Page::hide()
