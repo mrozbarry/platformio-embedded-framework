@@ -6,3 +6,6 @@ native:
 
 arduino:
 	pio run -e arduino
+
+htop:
+	htop -p $(pgrep program | paste -s -d,)
