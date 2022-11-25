@@ -6,6 +6,7 @@ namespace Pages {
   Page::Page()
     : Lifecycle()
     , isMounted(false)
+    , isDirty(true)
   {}
 
   Page::~Page()
@@ -31,6 +32,14 @@ namespace Pages {
     render->group = new MessageGroup(new Outputs::Output::Clear());
     return render;
   }
+
+  Page::Render *Page::Render::update()
+  {
+    Page::Render *render = new Page::Render();
+    render->group = new MessageGroup(new Outputs::Output::MoveCursor(0, 0));
+    return render;
+  }
+
   Page::Render *Page::Render::cursor(uint8_t x, uint8_t y)
   {
     group->add(new Outputs::Output::MoveCursor(x, y));
@@ -64,12 +73,13 @@ namespace Pages {
       Page::Render *rendered = render();
       if (rendered) {
         Application::get()->queue(rendered->group);
+        isDirty = false;
       }
     }
   }
 
   bool Page::willUpdate(unsigned long ms)
   {
-    return true;
+    return isDirty;
   }
 };

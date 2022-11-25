@@ -23,6 +23,6 @@ class Navigator : public Lifecycle
     void onShowPage(ShowPage *showPageMessage);
 
   private:
-    Pages::Page          *page;
+    Pages::Page   *page;
     unsigned long now;
 };

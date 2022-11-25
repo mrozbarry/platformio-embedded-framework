@@ -61,13 +61,13 @@ namespace Pages {
         if (indoor && outdoor) return;
 
         if (resultMsg->which == Inputs::TempSensor::Type::INDOOR) {
-          // root.publishNow(new Outputs::Output::MoveCursor(2, 2));
-          // root.publishNow(new Outputs::Output::Write("X", 1));
-          indoor = true;
+          updateState([this]() {
+            this->indoor = true;
+          });
         } else {
-          // root.publishNow(new Outputs::Output::MoveCursor(2, 3));
-          // root.publishNow(new Outputs::Output::Write("X", 1));
-          outdoor = true;
+          updateState([this]() {
+            this->outdoor = true;
+          });
         }
 
         if (indoor && outdoor) {

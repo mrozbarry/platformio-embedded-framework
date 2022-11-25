@@ -1,17 +1,18 @@
 #include <inputs/TempSensor.hpp>
 #include <Application.hpp>
 
+#include <cstdlib>
+#include <algorithm>
+
 namespace Inputs {
-  TempSensor::TempSensor(TempSensor::Type type, uint8_t pin, unsigned long readThrottle = 2000)
+  TempSensor::TempSensor(TempSensor::Type type, unsigned long readThrottle = 2000)
     : Lifecycle()
     , type(type)
-    , pin(pin)
     , now(0)
     , readThrottle(readThrottle)
     , nextReadAt(0)
-    , temp(0.0f)
-    , humidity(0.0f)
-    , hasBeenReadAtLeastOnce(false)
+    , temp(16.0f)
+    , humidity(20.0f)
   {}
 
   TempSensor::~TempSensor()
@@ -40,20 +41,31 @@ namespace Inputs {
     return now >= nextReadAt;
   }
 
-  void TempSensor::read(bool onlyPublishNew)
+  bool TempSensor::read()
   {
-    if (!canRead() && onlyPublishNew) return;
-
-    if (canRead()) {
-      temp += 0.01f;
-      humidity = 40.0f;
-      nextReadAt = now + readThrottle;
-      hasBeenReadAtLeastOnce = true;
+    if (!canRead()) {
+      return false;
     }
 
-    if (!hasBeenReadAtLeastOnce) return;
+    float tempIncrement = ((((float)(rand() % 10)) / 10.0f) - 0.5f) / 2.0f;
+    float humidityIncrement = ((((float)(rand() % 10)) / 10.0f) - 0.5f) / 2.0f;
 
-    Application::get()->queue(new TempSensor::Result(type, temp, humidity));
+    temp = std::min(
+      std::max(
+        temp + tempIncrement,
+        -30.0f
+      ),
+      40.0f
+    );
+    humidity = std::min(
+      std::max(
+        humidity + humidityIncrement,
+        10.0f
+      ),
+      90.0f
+    );
+    nextReadAt = now + readThrottle;
+    return true;
   }
 
   void TempSensor::init(unsigned long ms)
@@ -66,9 +78,12 @@ namespace Inputs {
   {
     now = ms;
 
-    if (!canRead()) return;
-
-    read(true);
+    if (read())
+    {
+      Application::get()->queue(
+        new TempSensor::Result(type, temp, humidity)
+      );
+    }
   }
 
   void TempSensor::message(Message *message)
@@ -87,6 +102,8 @@ namespace Inputs {
   {
     if (!readMessage->isFor(this)) return;
 
-    read(readMessage->onlyPublishNew);
+    read();
+
+    Application::get()->queue(new TempSensor::Result(type, temp, humidity));
   }
 };

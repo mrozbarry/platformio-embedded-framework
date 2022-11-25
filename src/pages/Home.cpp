@@ -8,17 +8,24 @@ namespace Pages {
     : Page()
   {}
 
+  void Home::init(unsigned long ms)
+  {
+    Application::get()->queue(new Inputs::TempSensor::Read(Inputs::TempSensor::Type::ANY, false));
+  }
+
   Page::Render *Home::render()
   {
     return Page::Render::output()
       ->cursor(0, 0)
-      ->write("12:00p Mon 24-11-2022", 20)
+      ->write("12:00p    24-11-2022", 20)
       ->cursor(0, 1)
-      ->write("Set: 00.0", 9)
+      ->write("Set: 00.0C", 10)
       ->cursor(0, 2)
-      ->write("In:  20.0  0%", 14)
+      ->write("In: ", 4)
+      ->write(&indoor[0], 13)
       ->cursor(0, 3)
-      ->write("Out: 20.0  0%", 14);
+      ->write("Out:", 4)
+      ->write(&outdoor[0], 13);
   }
 
   void Home::message(Message *message) {
@@ -33,14 +40,31 @@ namespace Pages {
 
   void Home::onTempSensorResult(Inputs::TempSensor::Result *resultMessage)
   {
-    if (resultMessage->which == Inputs::TempSensor::Type::INDOOR) {
-      // root.publishNow(new Outputs::Output::MoveCursor(5, 2));
-    } else {
-      // root.publishNow(new Outputs::Output::MoveCursor(5, 3));
+    switch (resultMessage->which)
+    {
+      case Inputs::TempSensor::Type::INDOOR:
+        updateState([this, &resultMessage]() {
+          this->setReading(&this->indoor[0], resultMessage->temp, resultMessage->humidity);
+        });
+        break;
+
+      case Inputs::TempSensor::Type::OUTDOOR:
+        updateState([this, &resultMessage]() {
+          this->setReading(&this->outdoor[0], resultMessage->temp, resultMessage->humidity);
+        });
+
+      default:
+        break;
     }
 
-    // char line[14];
-    // snprintf(&line[0], 14, "% 2.1f % 2.0f%%", resultMessage->temp, resultMessage->humidity); 
-    // root.publishNow(new Outputs::Output::Write(line, 13));
+  }
+
+  int Home::setReading(char *str, float temp, float humidity)
+  {
+    int length = snprintf(str, HOME_SEGMENT_LENGTH, "%+4.1fC %2.0f%%", temp, humidity);
+    if (str[0] == '+') {
+      str[0] = ' ';
+    }
+    return length;
   }
 };

@@ -6,8 +6,8 @@ Root::Root()
   : Application()
   , navigator()
   , output(NULL)
-  , indoor(Inputs::TempSensor::Type::INDOOR, 0, 2000)
-  , outdoor(Inputs::TempSensor::Type::OUTDOOR, 0, 2000)
+  , indoor(Inputs::TempSensor::Type::INDOOR, 2000)
+  , outdoor(Inputs::TempSensor::Type::OUTDOOR, 2000)
 {
   output = (Outputs::Output *)new Outputs::Console();
 }
@@ -20,7 +20,7 @@ Root::~Root()
 void Root::init(unsigned long ms)
 {
   navigator.init(ms);
-  output->init(ms);
+  if (output) output->init(ms);
   indoor.init(ms);
   outdoor.init(ms);
 }

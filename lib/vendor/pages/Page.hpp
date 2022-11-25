@@ -14,16 +14,14 @@ namespace Pages {
           ~Render();
 
           static Render *nothing();
-
           static Render *output();
+          static Render *update();
 
           Render *cursor(uint8_t x, uint8_t y);
           Render *write(const char *text, unsigned length);
 
           MessageGroup  *group;
       };
-
-      // Render::output->cursor(0, 0)->write("hello world", 13)
 
       Page();
       virtual ~Page();
@@ -36,7 +34,15 @@ namespace Pages {
 
       virtual bool willUpdate(unsigned long ms);
 
+      template<typename Functor>
+      void updateState(Functor updateFn)
+      {
+        updateFn();
+        isDirty = true;
+      }
+
     protected:
       bool    isMounted;
+      bool    isDirty;
   };
 };

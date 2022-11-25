@@ -34,11 +34,11 @@ namespace Inputs {
           const float humidity;
       };
 
-      TempSensor(TempSensor::Type type, uint8_t pin, unsigned long readThrottle);
+      TempSensor(TempSensor::Type type, unsigned long readThrottle);
       ~TempSensor();
 
       bool canRead();
-      void read(bool onlyPublishNew);
+      bool read();
 
       void init(unsigned long ms);
       void tick(unsigned long ms);
@@ -48,7 +48,6 @@ namespace Inputs {
 
     protected:
       Type          type;
-      uint8_t       pin;
       unsigned long now;
       unsigned long readThrottle;
       unsigned long nextReadAt;

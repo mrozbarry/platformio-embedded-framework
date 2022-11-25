@@ -4,6 +4,10 @@
 #include <pages/Boot.hpp>
 #include <Navigator.hpp>
 
+#ifdef NATIVE_BUILD
+#include <ctime>
+#endif
+
 void setup()
 {
   Application *root = Application::set(new Root());
@@ -27,6 +31,7 @@ void loop()
 #ifdef NATIVE_BUILD
 int main()
 {
+  srand(time(NULL));
   setup();
   while (true) {
     loop();

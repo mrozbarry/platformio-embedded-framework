@@ -5,17 +5,27 @@
 
 #pragma once
 
+#ifndef HOME_SEGMENT_LENGTH
+#define HOME_SEGMENT_LENGTH 11
+#endif
+
 namespace Pages {
   class Home : public Page
   {
     public:
       Home();
 
-      void message(Message *message);
+      void init(unsigned long ms) override;
+
+      Page::Render *render() override;
+
+      void message(Message *message) override;
       void onTempSensorResult(Inputs::TempSensor::Result *resultMessage);
 
-      Page::Render *render();
-
     protected:
+      int setReading(char *str, float temp, float humidity);
+
+      char indoor[HOME_SEGMENT_LENGTH];
+      char outdoor[HOME_SEGMENT_LENGTH];
   };
 };
