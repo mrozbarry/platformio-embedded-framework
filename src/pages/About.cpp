@@ -9,12 +9,12 @@ namespace Pages
     : Page()
   {}
 
-  void About::render()
+  Page::Render *About::render()
   {
-    // root.publish(new Outputs::Output::Clear());
-    // root.publish(new Outputs::Output::MoveCursor(3, 1));
-    // root.publish(new Outputs::Output::Write("Starting App", 12));
-    // root.publish(new Outputs::Output::MoveCursor(7, 2));
-    // root.publish(new Outputs::Output::Write("v1.0.0", 6));
+    return Page::Render::output()
+      ->cursor(3, 1)
+      ->write("Starting app", 12)
+      ->cursor(7, 2)
+      ->write("v1.0.0", 6);
   }
 }

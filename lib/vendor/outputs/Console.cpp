@@ -87,6 +87,7 @@ namespace Outputs {
       buffer[cursorY][cursorX] = string[i];
       dirty = true;
     }
+    cursorX++;
   }
 
   void Console::drawBar()

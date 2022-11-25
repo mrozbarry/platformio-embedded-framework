@@ -10,6 +10,8 @@ class MessageGroup : public Message
         MessageItem(Message *message);
         ~MessageItem();
 
+        MessageItem *add(Message *message);
+
         MessageItem *next;
 
         const Message *message;
@@ -18,7 +20,7 @@ class MessageGroup : public Message
     MessageGroup(Message *firstMessage);
     ~MessageGroup();
 
-    MessageGroup *add(Message *message);
+    MessageItem *add(Message *message);
     MessageItem *iter();
 
   protected:

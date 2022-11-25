@@ -30,6 +30,7 @@ int main()
   setup();
   while (true) {
     loop();
+    delay(100);
   }
   return 0;
 }

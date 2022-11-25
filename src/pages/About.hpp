@@ -9,6 +9,6 @@ namespace Pages
     public:
       About();
 
-      void render();
+      Page::Render *render();
   };
 };

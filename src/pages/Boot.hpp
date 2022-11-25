@@ -29,6 +29,7 @@ namespace Pages {
       void tick(unsigned long ms)
       {
         now = ms;
+        Page::tick(ms);
 
         if (!indoor) {
           return Application::get()->queue(
@@ -80,15 +81,13 @@ namespace Pages {
       {
         return Page::Render::output()
           ->cursor(5, 0)
-          ->write("Booting...", 10);
-        // root.publish(new Outputs::Output::MoveCursor(5, 0));
-        // root.publish(new Outputs::Output::Write("Booting...", 10));
-        // root.publish(new Outputs::Output::MoveCursor(1, 2));
-        // root.publish(new Outputs::Output::Write(indoor ? "[X] " : "[ ] ", 4));
-        // root.publish(new Outputs::Output::Write("Indoor sensor", 13));
-        // root.publish(new Outputs::Output::MoveCursor(1, 3));
-        // root.publish(new Outputs::Output::Write(outdoor ? "[X] " : "[ ] ", 4));
-        // root.publish(new Outputs::Output::Write("Outdoor sensor", 14));
+          ->write("Booting...", 10)
+          ->cursor(1, 2)
+          ->write(indoor ? "[X] " : "[ ] ", 4)
+          ->write("Indoor sensor", 13)
+          ->cursor(1, 3)
+          ->write(outdoor ? "[X] " : "[ ] ", 4)
+          ->write("Outdoor sensor", 14);
       }
 
     private:

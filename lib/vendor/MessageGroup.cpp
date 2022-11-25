@@ -8,6 +8,13 @@ MessageGroup::MessageItem::MessageItem(Message *message)
 MessageGroup::MessageItem::~MessageItem()
 {
     delete message;
+    delete next;
+}
+
+MessageGroup::MessageItem *MessageGroup::MessageItem::add(Message *message)
+{
+  next = new MessageItem(message);
+  return next;
 }
 
 MessageGroup::MessageGroup(Message *firstMessage)
@@ -18,7 +25,7 @@ MessageGroup::MessageGroup(Message *firstMessage)
 MessageGroup::~MessageGroup()
 {}
 
-MessageGroup *MessageGroup::add(Message *message)
+MessageGroup::MessageItem *MessageGroup::add(Message *message)
 {
     MessageItem *i = iter();
     while (i->next)

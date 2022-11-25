@@ -14,7 +14,7 @@ namespace Pages {
       void message(Message *message);
       void onTempSensorResult(Inputs::TempSensor::Result *resultMessage);
 
-      void render();
+      Page::Render *render();
 
     protected:
   };

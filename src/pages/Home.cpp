@@ -8,16 +8,17 @@ namespace Pages {
     : Page()
   {}
 
-  void Home::render()
+  Page::Render *Home::render()
   {
-    // root.publish(new Outputs::Output::MoveCursor(0, 0));
-    // root.publish(new Outputs::Output::Write("0X:XXp Tue 00-XXX-22", 20));
-    // root.publish(new Outputs::Output::MoveCursor(0, 1));
-    // root.publish(new Outputs::Output::Write("Set: 19.0", 9));
-    // root.publish(new Outputs::Output::MoveCursor(0, 2));
-    // root.publish(new Outputs::Output::Write("In:  20.0  0%", 14));
-    // root.publish(new Outputs::Output::MoveCursor(0, 3));
-    // root.publish(new Outputs::Output::Write("Out: -4.0  0%", 14));
+    return Page::Render::output()
+      ->cursor(0, 0)
+      ->write("12:00p Mon 24-11-2022", 20)
+      ->cursor(0, 1)
+      ->write("Set: 00.0", 9)
+      ->cursor(0, 2)
+      ->write("In:  20.0  0%", 14)
+      ->cursor(0, 3)
+      ->write("Out: 20.0  0%", 14);
   }
 
   void Home::message(Message *message) {

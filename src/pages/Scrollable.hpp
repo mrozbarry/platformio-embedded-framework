@@ -14,7 +14,7 @@ namespace Pages {
       ~Scrollable();
 
       void show();
-      void render();
+      Page::Render *render();
 
       void tick(unsigned long ms);
       void message(Message *message);

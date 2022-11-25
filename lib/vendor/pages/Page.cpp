@@ -1,5 +1,6 @@
 #include <pages/Page.hpp>
 #include <outputs/Output.hpp>
+#include <Application.hpp>
 
 namespace Pages {
   Page::Page()
@@ -27,12 +28,12 @@ namespace Pages {
   Page::Render *Page::Render::output()
   {
     Page::Render *render = new Page::Render();
-    group = new MessageGroup(new Outputs::Output::Clear());
+    render->group = new MessageGroup(new Outputs::Output::Clear());
     return render;
   }
   Page::Render *Page::Render::cursor(uint8_t x, uint8_t y)
   {
-    group->add(new Outputs::Output::Cursor(x, y));
+    group->add(new Outputs::Output::MoveCursor(x, y));
     return this;
   }
 
@@ -52,8 +53,10 @@ namespace Pages {
     isMounted = false;
   }
 
-  void Page::render()
-  {}
+  Page::Render *Page::render()
+  {
+    return Page::Render::nothing();
+  }
 
   void Page::tick(unsigned long ms)
   {

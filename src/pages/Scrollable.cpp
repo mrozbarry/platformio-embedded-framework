@@ -19,7 +19,7 @@ namespace Pages {
   {
   }
 
-  void Scrollable::render()
+  Page::Render *Scrollable::render()
   {
     // root.publishNow(new Outputs::Output::Clear());
 
@@ -31,6 +31,8 @@ namespace Pages {
       // root.publish(new Outputs::Output::Write(cursor == i ? ">" : " ", 1));
       // root.publish(new Outputs::Output::Write(items[index], 9));
     }
+
+    return Page::Render::nothing();
   }
 
   void Scrollable::tick(unsigned long ms)

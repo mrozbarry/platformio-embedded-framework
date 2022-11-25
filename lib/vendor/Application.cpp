@@ -1,4 +1,5 @@
 #include <Application.hpp>
+#include <MessageGroup.hpp>
 #include <debug/Debug.hpp>
 
 Application *Application::app = NULL;
@@ -34,7 +35,8 @@ void Application::queue(Message *message)
 {
   if (message == NULL) return;
 
-  for (uint8_t i = 0; i < APPLICATION_MESSAGE_QUEUE_SIZE; i++) {
+  for (uint8_t i = 0; i < APPLICATION_MESSAGE_QUEUE_SIZE; i++)
+  {
     if (messageQueue[i] != NULL) continue;
     messageQueue[i] = message;
     return;
@@ -50,9 +52,12 @@ void Application::handleMessages(unsigned long ms)
     if (!messageQueue[i]->ready(ms)) continue;
 
     if (messageQueue[i]->is(Message::Type::MESSAGE_GROUP)) {
-    }
-
-
+      MessageGroup *group = (MessageGroup *)messageQueue[i];
+      MessageGroup::MessageItem *i = group->iter();
+      while (i) {
+        publish((Message *)i->message);
+        i = i->next;
+      }
     } else {
       publish(messageQueue[i]);
     }
@@ -63,6 +68,7 @@ void Application::handleMessages(unsigned long ms)
 
   for(uint8_t i = 0; i < APPLICATION_MESSAGE_QUEUE_SIZE; i++) {
     if (messageQueue[i] != NULL) continue;
+
     for(uint8_t j = i + 1; j < APPLICATION_MESSAGE_QUEUE_SIZE; j++) {
       if (messageQueue[j] == NULL) continue;
       messageQueue[i] = messageQueue[j];
