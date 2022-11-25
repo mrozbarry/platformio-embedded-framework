@@ -27,7 +27,7 @@ namespace Pages {
     protected:
       const uint8_t rows;
       uint8_t       offset;
-      uint8_t       cursor;
+      uint8_t       selected;
       char          items[SCROLLABLE_ITEMS_COUNT][9] = {
         "1s Item ",
         "Second  ",
@@ -38,6 +38,5 @@ namespace Pages {
         "it will ",
         "looks ok"
       };
-      bool          dirty;
   };
 };

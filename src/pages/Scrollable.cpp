@@ -7,8 +7,7 @@ namespace Pages {
     : Page()
     , rows(rows)
     , offset(0)
-    , cursor(0)
-    , dirty(true)
+    , selected(0)
   {
   }
 
@@ -21,26 +20,31 @@ namespace Pages {
 
   Page::Render *Scrollable::render()
   {
-    // root.publishNow(new Outputs::Output::Clear());
+    auto tacos = Render::output();
 
     for (unsigned int i = 0; i < 4; i++) {
       unsigned int index = offset + i;
       if (index >= SCROLLABLE_ITEMS_COUNT) break;
 
-      // root.publish(new Outputs::Output::MoveCursor(0, i));
-      // root.publish(new Outputs::Output::Write(cursor == i ? ">" : " ", 1));
-      // root.publish(new Outputs::Output::Write(items[index], 9));
+      tacos
+        ->cursor(0, i);
+
+      if (i == selected) {
+        tacos->write(">", 1);
+      }
+
+      tacos->write( items[index], 9);
     }
 
-    return Page::Render::nothing();
+    return tacos;
   }
 
   void Scrollable::tick(unsigned long ms)
   {
-    if (dirty) {
-      render();
-      dirty = false;
-    }
+    Page::tick(ms);
+    
+      cursorDown();
+    
   }
 
   void Scrollable::message(Message *message)
@@ -70,29 +74,32 @@ namespace Pages {
 
   void Scrollable::cursorUp()
   {
-    dirty = true;
-    if (cursor == 0) {
-      offset = offset == 0
-        ? offset
-        : offset - 1;
+    updateState([this]() {
+      if (selected == 0) {
+        this->offset = this->offset == 0
+          ? this->offset
+          : this->offset - 1;
 
-      return;
-    }
+        return;
+      }
 
-    cursor--;
+      this->selected--;
+    });
+
   }
 
   void Scrollable::cursorDown()
   {
-    dirty = true;
-    if (cursor == (rows - 1)) {
-      offset = offset == SCROLLABLE_ITEMS_COUNT - rows - 1
-        ? offset
-        : offset + 1;
+    updateState([this]() {
+      if (this->selected == (this->rows - 1)) {
+        this->offset = this->offset == SCROLLABLE_ITEMS_COUNT - this->rows
+          ? this->offset
+          : this->offset + 1;
 
-      return;
-    }
+        return;
+      }
 
-    cursor++;
+      this->selected++;
+    });
   }
 };

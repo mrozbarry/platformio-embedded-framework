@@ -1,6 +1,7 @@
 #include <Platform.hpp>
 #include <Application.hpp>
 #include <Root.hpp>
+#include <pages/Scrollable.hpp>
 #include <pages/Boot.hpp>
 #include <Navigator.hpp>
 
@@ -26,6 +27,7 @@ void loop()
   Application *root = Application::get();
   root->handleMessages(millis());
   root->tick(millis());
+  delay(1000);
 }
 
 #ifdef NATIVE_BUILD

@@ -27,4 +27,3 @@ class Application : public Lifecycle
     Message             *messageQueue[APPLICATION_MESSAGE_QUEUE_SIZE];
 
 };
-

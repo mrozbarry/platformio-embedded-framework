@@ -5,11 +5,10 @@
 Root::Root()
   : Application()
   , navigator()
-  , output(NULL)
+  , output(new Outputs::Console())
   , indoor(Inputs::TempSensor::Type::INDOOR, 2000)
   , outdoor(Inputs::TempSensor::Type::OUTDOOR, 2000)
 {
-  output = (Outputs::Output *)new Outputs::Console();
 }
 
 Root::~Root()
