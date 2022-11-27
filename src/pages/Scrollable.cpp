@@ -20,23 +20,19 @@ namespace Pages {
 
   Page::Render *Scrollable::render()
   {
-    auto tacos = Render::output();
+    Page::Render *render = Render::output();
 
     for (unsigned int i = 0; i < 4; i++) {
       unsigned int index = offset + i;
       if (index >= SCROLLABLE_ITEMS_COUNT) break;
 
-      tacos
-        ->cursor(0, i);
-
-      if (i == selected) {
-        tacos->write(">", 1);
-      }
-
-      tacos->write( items[index], 9);
+      render 
+        ->cursor(0, i)
+        ->write(i == selected ? ">" : " ", 1)
+        ->write(items[index], 9);
     }
 
-    return tacos;
+    return render;
   }
 
   void Scrollable::tick(unsigned long ms)
