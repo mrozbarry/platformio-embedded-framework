@@ -17,7 +17,8 @@ void setup()
 
   root->queue(
     new Navigator::ShowPage(
-      new Pages::Boot(2000)
+      // new Pages::Boot(2000)
+      new Pages::Scrollable()
     )
   );
 }
@@ -27,7 +28,7 @@ void loop()
   Application *root = Application::get();
   root->handleMessages(millis());
   root->tick(millis());
-  delay(1000);
+  delay(250);
 }
 
 #ifdef NATIVE_BUILD
@@ -37,7 +38,7 @@ int main()
   setup();
   while (true) {
     loop();
-    delay(100);
+    delay(1);
   }
   return 0;
 }

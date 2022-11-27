@@ -1,6 +1,5 @@
 #include <Root.hpp>
 #include <outputs/Console.hpp>
-#include <debug/Debug.hpp>
 
 Root::Root()
   : Application()
@@ -8,6 +7,7 @@ Root::Root()
   , output(new Outputs::Console())
   , indoor(Inputs::TempSensor::Type::INDOOR, 2000)
   , outdoor(Inputs::TempSensor::Type::OUTDOOR, 2000)
+  , down(Inputs::Button::Type::DOWN, "./dev/btn-down/press")
 {
 }
 
@@ -22,6 +22,7 @@ void Root::init(unsigned long ms)
   if (output) output->init(ms);
   indoor.init(ms);
   outdoor.init(ms);
+  down.init(ms);
 }
 
 void Root::tick(unsigned long ms)
@@ -30,6 +31,7 @@ void Root::tick(unsigned long ms)
   if (output) output->tick(ms);
   indoor.tick(ms);
   outdoor.tick(ms);
+  down.tick(ms);
 }
 
 void Root::publish(Message *message)
@@ -40,4 +42,5 @@ void Root::publish(Message *message)
   if (output) output->message(message);
   indoor.message(message);
   outdoor.message(message);
+  down.message(message);
 }

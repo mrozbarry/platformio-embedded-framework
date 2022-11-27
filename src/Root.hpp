@@ -3,6 +3,7 @@
 #include <Navigator.hpp>
 #include <outputs/Output.hpp>
 #include <inputs/TempSensor.hpp>
+#include <inputs/ButtonDevice.hpp>
 
 #pragma once
 
@@ -18,8 +19,9 @@ class Root : public Application
   protected:
     void publish(Message *message) override;
 
-    Navigator           navigator;
-    Outputs::Output     *output;
-    Inputs::TempSensor  indoor;
-    Inputs::TempSensor  outdoor;
+    Navigator             navigator;
+    Outputs::Output       *output;
+    Inputs::TempSensor    indoor;
+    Inputs::TempSensor    outdoor;
+    Inputs::ButtonDevice  down;
 };
