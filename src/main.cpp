@@ -28,7 +28,6 @@ void loop()
   Application *root = Application::get();
   root->handleMessages(millis());
   root->tick(millis());
-  delay(250);
 }
 
 #ifdef NATIVE_BUILD

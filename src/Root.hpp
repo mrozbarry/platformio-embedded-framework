@@ -7,6 +7,10 @@
 
 #pragma once
 
+#ifndef ROOT_ITEM_COUNT
+#define ROOT_ITEM_COUNT 9
+#endif
+
 class Root : public Application
 {
   public:
@@ -19,9 +23,14 @@ class Root : public Application
   protected:
     void publish(Message *message) override;
 
-    Navigator             navigator;
-    Outputs::Output       *output;
-    Inputs::TempSensor    indoor;
-    Inputs::TempSensor    outdoor;
-    Inputs::ButtonDevice  down;
+    template<typename Functor>
+    void eachItem(Functor func)
+    {
+      for(unsigned int i = 0; i < ROOT_ITEM_COUNT; i++) {
+        if (items[i] == NULL) continue;
+        func(items[i], i);
+      }
+    }
+
+    Lifecycle             *items[ROOT_ITEM_COUNT];
 };
