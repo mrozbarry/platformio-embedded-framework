@@ -43,6 +43,9 @@ namespace Inputs
       void release(unsigned long ms);
 
     protected:
+      void shortPress();
+      void longPress();
+
       const Type    type;
       unsigned long pressedAt;
       bool          isPressed;

@@ -48,13 +48,20 @@ namespace Inputs {
   void Button::release(unsigned long ms)
   {
     isPressed = false;
-    unsigned long duration = ms - pressedAt;
     pressedAt = 0;
 
-    if (duration >= minMsLongPress) {
-      Application::get()->queue(new LongPress(type));
-    } else {
-      Application::get()->queue(new Press(type));
-    }
+    return ((ms - pressedAt) >= minMsLongPress)
+      ? longPress()
+      : shortPress();
+  }
+
+  void Button::shortPress()
+  {
+    Application::get()->queue(new Press(type));
+  }
+
+  void Button::longPress()
+  {
+    Application::get()->queue(new LongPress(type));
   }
 }

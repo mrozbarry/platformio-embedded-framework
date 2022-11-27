@@ -42,9 +42,6 @@ namespace Pages {
   void Scrollable::tick(unsigned long ms)
   {
     Page::tick(ms);
-    
-      cursorDown();
-    
   }
 
   void Scrollable::message(Message *message)
