@@ -7,6 +7,10 @@ namespace Outputs {
     : Output(width, height)
     , buffer(NULL)
     , dirty(false)
+    , cursorX(0)
+    , cursorY(0)
+    , blinkAt(0)
+    , cursorBlinkShow(true)
   {
     buffer = new char*[height];
     for (uint8_t y = 0; y < height; y++) {
@@ -27,21 +31,38 @@ namespace Outputs {
     delete[] buffer;
   }
 
+  void Console::init(unsigned long ms)
+  {
+    blinkAt = ms + 200;
+  }
+
   void Console::tick(unsigned long ms)
   {
+#ifndef DEBUG
+    if (ms > blinkAt) {
+      cursorBlinkShow = !cursorBlinkShow;
+      dirty = true;
+
+      blinkAt = ms + 200;
+    }
+#endif
     if (!dirty) return;
 
     // posix/terminal escape for clear/return cursor to top
     // https://stackoverflow.com/a/6487534
 #ifndef DEBUG
-    std::cout << "\x1B[2J\x1B[H";
+    std::cout << "\x1B[2J" << "\x1B[H";
 #endif
 
     drawBar();
     for (uint8_t r = 0; r < height; r++) {
       std::cout << '|';
       for (uint8_t c = 0; c < width; c++) {
-        std::cout << buffer[r][c];
+        if (cursorX == c && cursorY == r && cursorBlinkShow) {
+          std::cout << '_';
+        } else {
+          std::cout << buffer[r][c];
+        }
       }
       std::cout << '|' << std::endl;
     }

@@ -9,6 +9,7 @@ namespace Outputs {
       Console(uint8_t width = OUTPUT_WIDTH, uint8_t height = OUTPUT_HEIGHT);
       ~Console();
 
+      void init(unsigned long ms);
       void tick(unsigned long ms);
 
       void clear();
@@ -18,10 +19,12 @@ namespace Outputs {
     protected:
       void drawBar();
 
-      char    **buffer;
-      bool    dirty;
+      char          **buffer;
+      bool          dirty;
 
-      uint8_t cursorX;
-      uint8_t cursorY;
+      uint8_t       cursorX;
+      uint8_t       cursorY;
+      unsigned long blinkAt;
+      bool          cursorBlinkShow;
   };
 };

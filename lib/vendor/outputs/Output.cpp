@@ -50,6 +50,15 @@ namespace Outputs {
   {
     switch (message->type)
     {
+      case Message::Type::OUTPUT_BACKLIGHT:
+        return onBacklight((Output::Backlight *)message);
+
+      case Message::Type::OUTPUT_CURSOR:
+        return onCursor((Output::Cursor *)message);
+
+      case Message::Type::OUTPUT_BLINK:
+        return onBlink((Output::Blink *)message);
+
       case Message::Type::OUTPUT_CLEAR:
         return clear();
 
@@ -64,14 +73,29 @@ namespace Outputs {
     }
   }
 
+  void Output::onBacklight(Backlight *backlightMessage)
+  {
+    backlight(backlightMessage->toggle);
+  }
+
+  void Output::onCursor(Cursor *cursorMessage)
+  {
+    cursor(cursorMessage->toggle);
+  }
+
+  void Output::onBlink(Blink *blinkMessage)
+  {
+    blink(blinkMessage->toggle);
+  }
+
   void Output::onMove(Move *moveMessage)
   {
-    return move(moveMessage->x, moveMessage->y);
+    move(moveMessage->x, moveMessage->y);
   }
 
   void Output::onWrite(Write *writeMessage)
   {
-    return write(writeMessage->string);
+    write(writeMessage->string);
   }
 
   void Output::backlight(bool toggle)

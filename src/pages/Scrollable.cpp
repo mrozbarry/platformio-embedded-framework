@@ -28,9 +28,11 @@ namespace Pages {
 
       render 
         ->move(0, i)
-        ->write(i == selected ? ">" : " ")
+        //->write(i == selected ? ">" : " ")
         ->write(items[index]);
     }
+
+    render->move(0, selected);
 
     return render;
   }

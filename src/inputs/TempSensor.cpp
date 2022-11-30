@@ -1,8 +1,10 @@
 #include <inputs/TempSensor.hpp>
 #include <Application.hpp>
 
+#ifdef NATIVE_BUILD
 #include <cstdlib>
 #include <algorithm>
+#endif
 
 namespace Inputs {
   TempSensor::TempSensor(TempSensor::Type type, unsigned long readThrottle = 2000)
@@ -47,8 +49,13 @@ namespace Inputs {
       return false;
     }
 
+#ifdef NATIVE_BUILD
     float tempIncrement = ((((float)(rand() % 10)) / 10.0f) - 0.5f) / 2.0f;
     float humidityIncrement = ((((float)(rand() % 10)) / 10.0f) - 0.5f) / 2.0f;
+#else
+    float tempIncrement = 0.01f;
+    float humidityIncrement = 0.002f;
+#endif
 
     temp = std::min(
       std::max(

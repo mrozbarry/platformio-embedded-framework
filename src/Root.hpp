@@ -1,14 +1,10 @@
 #include <Application.hpp>
 #include <Message.hpp>
-#include <Navigator.hpp>
-#include <outputs/Output.hpp>
-#include <inputs/TempSensor.hpp>
-#include <inputs/ButtonDevice.hpp>
 
 #pragma once
 
 #ifndef ROOT_ITEM_COUNT
-#define ROOT_ITEM_COUNT 9
+#define ROOT_ITEM_COUNT 6
 #endif
 
 class Root : public Application

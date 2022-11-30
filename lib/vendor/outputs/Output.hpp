@@ -69,11 +69,14 @@ namespace Outputs {
       void init(unsigned long);
       void message(Message *message);
 
-
-
+    private:
+      void onBacklight(Backlight *backlightMessage);
+      void onCursor(Cursor *cursorMessage);
+      void onBlink(Blink *blinkMessage);
       void onMove(Move *moveMessage);
       void onWrite(Write *writeMessage);
 
+    public:
       virtual void backlight(bool toggle);
       virtual void cursor(bool toggle);
       virtual void blink(bool toggle);
