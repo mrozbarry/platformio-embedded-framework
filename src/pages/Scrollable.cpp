@@ -27,9 +27,9 @@ namespace Pages {
       if (index >= SCROLLABLE_ITEMS_COUNT) break;
 
       render 
-        ->cursor(0, i)
-        ->write(i == selected ? ">" : " ", 1)
-        ->write(items[index], 9);
+        ->move(0, i)
+        ->write(i == selected ? ">" : " ")
+        ->write(items[index]);
     }
 
     return render;

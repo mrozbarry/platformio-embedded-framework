@@ -16,16 +16,16 @@ namespace Pages {
   Page::Render *Home::render()
   {
     return Page::Render::output()
-      ->cursor(0, 0)
-      ->write("12:00p    24-11-2022", 20)
-      ->cursor(0, 1)
-      ->write("Set: 00.0C", 10)
-      ->cursor(0, 2)
-      ->write("In: ", 4)
-      ->write(&indoor[0], 13)
-      ->cursor(0, 3)
-      ->write("Out:", 4)
-      ->write(&outdoor[0], 13);
+      ->move(0, 0)
+      ->write("12:00p    24-11-2022")
+      ->move(0, 1)
+      ->write("Set: 00.0C")
+      ->move(0, 2)
+      ->write("In: ")
+      ->write(&indoor[0])
+      ->move(0, 3)
+      ->write("Out:")
+      ->write(&outdoor[0]);
   }
 
   void Home::message(Message *message) {

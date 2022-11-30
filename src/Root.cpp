@@ -4,15 +4,21 @@
 Root::Root()
   : Application()
 {
+  eachItem([this](Lifecycle *item, unsigned int i) {
+      this->items[i] = NULL;
+  });
+
   this->items[0] = new Navigator();
   this->items[1] = new Outputs::Console();
   this->items[2] = new Inputs::TempSensor(Inputs::TempSensor::Type::INDOOR, 2000);
   this->items[3] = new Inputs::TempSensor(Inputs::TempSensor::Type::OUTDOOR, 2000);
+#ifdef NATIVE_BUILD
   this->items[4] = new Inputs::ButtonDevice(Inputs::Button::Type::UP, "./dev/btn-up/press");
   this->items[5] = new Inputs::ButtonDevice(Inputs::Button::Type::DOWN, "./dev/btn-down/press");
   this->items[6] = new Inputs::ButtonDevice(Inputs::Button::Type::LEFT, "./dev/btn-left/press");
   this->items[7] = new Inputs::ButtonDevice(Inputs::Button::Type::RIGHT, "./dev/btn-right/press");
   this->items[8] = new Inputs::ButtonDevice(Inputs::Button::Type::SELECT, "./dev/btn-select/press");
+#endif
 }
 
 Root::~Root()

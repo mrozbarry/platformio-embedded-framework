@@ -80,14 +80,14 @@ namespace Pages {
       Page::Render *render()
       {
         return Page::Render::output()
-          ->cursor(5, 0)
-          ->write("Booting...", 10)
-          ->cursor(1, 2)
-          ->write(indoor ? "[X] " : "[ ] ", 4)
-          ->write("Indoor sensor", 13)
-          ->cursor(1, 3)
-          ->write(outdoor ? "[X] " : "[ ] ", 4)
-          ->write("Outdoor sensor", 14);
+          ->move(5, 0)
+          ->write("Booting...")
+          ->move(1, 2)
+          ->write(indoor ? "[X] " : "[ ] ")
+          ->write("Indoor sensor")
+          ->move(1, 3)
+          ->write(outdoor ? "[X] " : "[ ] ")
+          ->write("Outdoor sensor");
       }
 
     private:

@@ -16,6 +16,30 @@ namespace Outputs {
   class Output : public Lifecycle
   {
     public:
+      class Backlight : public Message
+      {
+        public:
+          Backlight(bool toggle);
+
+          const bool  toggle;
+      };
+
+      class Cursor : public Message
+      {
+        public:
+          Cursor(bool toggle);
+
+          const bool  toggle;
+      };
+
+      class Blink : public Message
+      {
+        public:
+          Blink(bool toggle);
+
+          const bool  toggle;
+      };
+
       class Clear : public Message
       {
         public:
@@ -25,16 +49,15 @@ namespace Outputs {
       class Write : public Message
       {
         public:
-          Write(const char *string, uint8_t length);
+          Write(const char *string);
 
           const char *string;
-          const uint8_t length;
       };
 
-      class MoveCursor : public Message
+      class Move : public Message
       {
         public:
-          MoveCursor(uint8_t x, uint8_t y);
+          Move(uint8_t x, uint8_t y);
 
           const uint8_t x;
           const uint8_t y;
@@ -46,21 +69,19 @@ namespace Outputs {
       void init(unsigned long);
       void message(Message *message);
 
-      void onMoveCursor(MoveCursor *moveCursorMessage);
+
+
+      void onMove(Move *moveMessage);
       void onWrite(Write *writeMessage);
 
-      virtual void on();
-      virtual void off();
+      virtual void backlight(bool toggle);
+      virtual void cursor(bool toggle);
+      virtual void blink(bool toggle);
       virtual void clear();
-      virtual void moveCursor(uint8_t x, uint8_t y);
-      virtual void write(const char *string, uint8_t length);
+      virtual void move(uint8_t x, uint8_t y);
+      virtual void write(const char *string);
 
-    protected:
       const uint8_t   width;
       const uint8_t   height;
-      uint8_t         cursorX;
-      uint8_t         cursorY;
-      bool            cursorShow;
-
   };
 };

@@ -17,8 +17,9 @@ namespace Pages {
           static Render *output();
           static Render *update();
 
-          Render *cursor(uint8_t x, uint8_t y);
-          Render *write(const char *text, unsigned length);
+          Render *clear();
+          Render *move(uint8_t x, uint8_t y);
+          Render *write(const char *text);
 
           MessageGroup  *group;
       };

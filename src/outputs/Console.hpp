@@ -12,13 +12,16 @@ namespace Outputs {
       void tick(unsigned long ms);
 
       void clear();
-      void moveCursor(uint8_t x, uint8_t y);
-      void write(const char *string, uint8_t length);
+      void move(uint8_t x, uint8_t y);
+      void write(const char *string);
 
     protected:
       void drawBar();
 
-      char  **buffer;
-      bool  dirty;
+      char    **buffer;
+      bool    dirty;
+
+      uint8_t cursorX;
+      uint8_t cursorY;
   };
 };

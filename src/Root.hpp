@@ -24,10 +24,10 @@ class Root : public Application
     void publish(Message *message) override;
 
     template<typename Functor>
-    void eachItem(Functor func)
+    void eachItem(Functor func, bool skipNull = true)
     {
       for(unsigned int i = 0; i < ROOT_ITEM_COUNT; i++) {
-        if (items[i] == NULL) continue;
+        if (skipNull && items[i] == NULL) continue;
         func(items[i], i);
       }
     }

@@ -61,16 +61,16 @@ namespace Outputs {
     dirty = true;
   }
   
-  void Console::moveCursor(uint8_t x, uint8_t y)
+  void Console::move(uint8_t x, uint8_t y)
   {
     cursorX = x >= width ? width - 1 : x;
     cursorY = y >= height ? height - 1 : y;
   }
   
-  void Console::write(const char *string, uint8_t length)
+  void Console::write(const char *string)
   {
     uint8_t startX = cursorX;
-    for (uint8_t i = 0; i < length; i++) {
+    for (uint8_t i = 0; i < width; i++) {
       uint8_t c = startX + i;
       if (c >= width) {
         cursorY += 1;

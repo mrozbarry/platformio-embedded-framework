@@ -36,19 +36,19 @@ namespace Pages {
   Page::Render *Page::Render::update()
   {
     Page::Render *render = new Page::Render();
-    render->group = new MessageGroup(new Outputs::Output::MoveCursor(0, 0));
+    render->group = new MessageGroup(new Outputs::Output::Move(0, 0));
     return render;
   }
 
-  Page::Render *Page::Render::cursor(uint8_t x, uint8_t y)
+  Page::Render *Page::Render::move(uint8_t x, uint8_t y)
   {
-    group->add(new Outputs::Output::MoveCursor(x, y));
+    group->add(new Outputs::Output::Move(x, y));
     return this;
   }
 
-  Page::Render *Page::Render::write(const char *text, unsigned int length)
+  Page::Render *Page::Render::write(const char *text)
   {
-    group->add(new Outputs::Output::Write(text, length));
+    group->add(new Outputs::Output::Write(text));
     return this;
   }
 

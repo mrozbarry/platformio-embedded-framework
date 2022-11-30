@@ -16,8 +16,11 @@ class Message
 
       NAVIGATE_SHOW_PAGE,
 
+      OUTPUT_BACKLIGHT,
+      OUTPUT_CURSOR,
+      OUTPUT_BLINK,
       OUTPUT_CLEAR,
-      OUTPUT_MOVE_CURSOR,
+      OUTPUT_MOVE,
       OUTPUT_WRITE,
 
       TEMP_SENSOR_READ,

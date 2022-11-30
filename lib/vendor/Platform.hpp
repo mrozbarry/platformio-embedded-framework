@@ -20,8 +20,17 @@
 unsigned long millis();
 #endif
 
+#ifndef NATIVE_OR_EMBEDDED
+#define NATIVE_OR_EMBEDDED(native, embedded)  native
+#endif
+
 #else /* NATIVE_BUILD */
 
 #include <Arduino.h>
 
+#ifndef NATIVE_OR_EMBEDDED
+#define NATIVE_OR_EMBEDDED(native, embedded)  embedded
+#endif
+
 #endif /* NATIVE_BUILD */
+
