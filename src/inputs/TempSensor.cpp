@@ -52,10 +52,6 @@ namespace Inputs {
 #ifdef NATIVE_BUILD
     float tempIncrement = ((((float)(rand() % 10)) / 10.0f) - 0.5f) / 2.0f;
     float humidityIncrement = ((((float)(rand() % 10)) / 10.0f) - 0.5f) / 2.0f;
-#else
-    float tempIncrement = 0.01f;
-    float humidityIncrement = 0.002f;
-#endif
 
     temp = std::min(
       std::max(
@@ -71,6 +67,14 @@ namespace Inputs {
       ),
       90.0f
     );
+#else
+    float tempIncrement = 0.01f;
+    float humidityIncrement = 0.002f;
+
+    temp = temp + tempIncrement;
+    humidity = humidity + humidityIncrement;
+#endif
+
     nextReadAt = now + readThrottle;
     return true;
   }

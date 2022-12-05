@@ -1,6 +1,6 @@
 # Arduino + I2C LCD Framework
 
-Developed for Ardunio Nano (ATmega328P)
+Developed for Ardunio Nano (ATmega328P) with an LCD screen
 
 ## Setup
 
@@ -10,4 +10,25 @@ Developed for Ardunio Nano (ATmega328P)
 
 ## Future work
 
- - Make this run on an arduino (should need to implement the Lcd interface but otherwise it shouldn't be too bad)
+### Components
+
+I would like to have an interface in pages that could behave like this:
+
+```
+Page::Render *render()
+{
+  return new Columns([
+    new Text("Hello"),
+    new Text("World", Text::Align::Right),
+  ], 2);
+}
+```
+
+Which could render something like:
+
+```
++----------------+
+|Hello      World|
+|                |
++----------------+
+```

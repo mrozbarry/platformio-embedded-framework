@@ -61,7 +61,15 @@ namespace Pages {
 
   int Home::setReading(char *str, float temp, float humidity)
   {
-    int length = snprintf(str, HOME_SEGMENT_LENGTH, "%+4.1fC %2.0f%%", temp, humidity);
+#ifdef NATIVE_BUILD
+    int length = snprintf(str, HOME_SEGMENT_LENGTH, "%3.2fC %2.0f%%", temp, humidity);
+#else
+    char tempStr[6];
+    char humStr[4];
+    dtostrf(temp, 2, 1, &tempStr[0]);
+    dtostrf(humidity, 2, 0, &humStr[0]);
+    int length = snprintf(str, HOME_SEGMENT_LENGTH, "%sC %s%%", tempStr, humStr);
+#endif
     if (str[0] == '+') {
       str[0] = ' ';
     }

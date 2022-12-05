@@ -12,9 +12,9 @@ class MessageGroup : public Message
 
         MessageItem *add(Message *message);
 
-        MessageItem *next;
-
         const Message *message;
+
+        MessageItem *next;
     };
 
     MessageGroup(Message *firstMessage);

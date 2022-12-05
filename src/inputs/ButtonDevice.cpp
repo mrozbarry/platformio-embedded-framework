@@ -1,4 +1,6 @@
 #include <inputs/ButtonDevice.hpp>
+
+#ifdef NATIVE_BUILD
 #include <sys/stat.h>
 #include <cerrno>
 #include <iostream>
@@ -45,3 +47,4 @@ namespace Inputs
     }
   }
 };
+#endif

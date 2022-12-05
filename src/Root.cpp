@@ -1,6 +1,7 @@
 #include <Root.hpp>
 #include <Navigator.hpp>
 #include <outputs/Console.hpp>
+#include <outputs/Lcd.hpp>
 #include <inputs/TempSensor.hpp>
 #include <inputs/ButtonGroup.hpp>
 #include <inputs/ButtonDevice.hpp>
@@ -14,9 +15,9 @@ Root::Root()
 
   this->items[0] = new Navigator();
 #ifdef NATIVE_BUILD
-  this->items[1] = new Outputs::Console();
+  this->items[1] = new Outputs::Console(16, 2);
 #else
-  this->items[1] = new Outputs::Lcd();
+  this->items[1] = (Outputs::Output *)new Outputs::Lcd();
 #endif
   this->items[2] = new Inputs::TempSensor(Inputs::TempSensor::Type::INDOOR, 2000);
   this->items[3] = new Inputs::TempSensor(Inputs::TempSensor::Type::OUTDOOR, 2000);

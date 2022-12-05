@@ -1,6 +1,7 @@
-#include <iostream>
-
 #include <outputs/Console.hpp>
+
+#ifdef NATIVE_BUILD
+#include <iostream>
 
 namespace Outputs {
   Console::Console(uint8_t width, uint8_t height)
@@ -10,11 +11,11 @@ namespace Outputs {
     , cursorX(0)
     , cursorY(0)
     , blinkAt(0)
-    , cursorBlinkShow(true)
+    , cursorBlinkShow(false)
   {
     buffer = new char*[height];
     for (uint8_t y = 0; y < height; y++) {
-      buffer[y] = new char[width];
+      buffer[y] = new char[width + 1];
     }
     clear();
   }
@@ -120,3 +121,5 @@ namespace Outputs {
     std::cout << '+' << std::endl;
   }
 };
+
+#endif

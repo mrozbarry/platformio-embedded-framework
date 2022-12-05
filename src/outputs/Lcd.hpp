@@ -17,27 +17,27 @@
 #endif
 
 #ifndef LCD_PIN_RS
-#define LCD_PIN_RS  0
+#define LCD_PIN_RS  12
 #endif
 
 #ifndef LCD_PIN_ENABLE
-#define LCD_PIN_ENABLE  0
+#define LCD_PIN_ENABLE  11
 #endif
 
 #ifndef LCD_PIN_D4
-#define LCD_PIN_D4  0
+#define LCD_PIN_D4  5
 #endif
 
 #ifndef LCD_PIN_D5
-#define LCD_PIN_D5  0
+#define LCD_PIN_D5  4
 #endif
 
 #ifndef LCD_PIN_D6
-#define LCD_PIN_D6  0
+#define LCD_PIN_D6  3
 #endif
 
 #ifndef LCD_PIN_D7
-#define LCD_PIN_D7  0
+#define LCD_PIN_D7  2
 #endif
 
 namespace Outputs {

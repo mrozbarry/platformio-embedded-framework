@@ -7,7 +7,7 @@ class Lifecycle
 {
   public:
     Lifecycle();
-    ~Lifecycle();
+    virtual ~Lifecycle();
 
     virtual void init(unsigned long ms);
     virtual void tick(unsigned long ms);

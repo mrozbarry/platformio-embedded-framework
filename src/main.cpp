@@ -17,8 +17,8 @@ void setup()
 
   root->queue(
     new Navigator::ShowPage(
-      // new Pages::Boot(2000)
-      new Pages::Scrollable()
+      new Pages::Boot(2000)
+      // new Pages::Scrollable()
     )
   );
 }

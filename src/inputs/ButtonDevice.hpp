@@ -1,6 +1,9 @@
 #include <inputs/Button.hpp>
+
+#ifdef NATIVE_BUILD
 #include <sys/stat.h>
 #include <cerrno>
+#endif
 
 #pragma once
 
@@ -19,7 +22,9 @@ namespace Inputs
 
       const char    *device;
       bool          willShortPress;
+#ifdef NATIVE_BUILD
       struct stat   deviceStat;
       time_t        lastModifiedAt;
+#endif
   };
 };
