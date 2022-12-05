@@ -1,4 +1,5 @@
 #include <pages/Page.hpp>
+#include <pages/About.hpp>
 #include <pages/Carousel.hpp>
 #include <inputs/TempSensor.hpp>
 #include <Navigator.hpp>

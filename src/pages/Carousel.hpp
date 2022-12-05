@@ -17,6 +17,7 @@ namespace Pages {
       void init(unsigned long ms) override;
       void tick(unsigned long ms) override;
       void message(Message *msg) override;
+      bool willUpdate(unsigned long ms) override;
 
       void next();
       void prev();

@@ -35,6 +35,7 @@ namespace Pages {
     if (pages[pageIndex]) {
       pages[pageIndex]->tick(ms);
     }
+    Page::tick(ms);
   }
 
   void Carousel::message(Message *msg)
@@ -48,6 +49,14 @@ namespace Pages {
       default:
         break;
     }
+    if (pages[pageIndex]) {
+      pages[pageIndex]->message(msg);
+    }
+  }
+
+  bool Carousel::willUpdate(unsigned long ms)
+  {
+    return (pages[pageIndex] != NULL ? pages[pageIndex]->willUpdate(ms) : false) || Page::willUpdate(ms);
   }
 
   void Carousel::next()

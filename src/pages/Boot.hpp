@@ -1,6 +1,6 @@
 #include <pages/Page.hpp>
 #include <pages/Home.hpp>
-#include <pages/About.hpp>
+#include <pages/Splash.hpp>
 #include <Navigator.hpp>
 #include <inputs/TempSensor.hpp>
 #include <Application.hpp>
@@ -71,8 +71,7 @@ namespace Pages {
         }
 
         if (indoor && outdoor) {
-          Application::get()->queue(new Navigator::ShowPage(new Pages::About(), now + milliseconds));
-          Application::get()->queue(new Navigator::ShowPage(new Pages::Home(), now + milliseconds + 5000));
+          Application::get()->queue(new Navigator::ShowPage(new Pages::Splash(5000), now + milliseconds));
           return;
         }
       }

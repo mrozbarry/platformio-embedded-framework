@@ -15,7 +15,8 @@ Root::Root()
 
   this->items[0] = new Navigator();
 #ifdef NATIVE_BUILD
-  this->items[1] = new Outputs::Console(16, 2);
+  //this->items[1] = new Outputs::Console(16, 2);
+  this->items[1] = new Outputs::Console(20, 4);
 #else
   this->items[1] = (Outputs::Output *)new Outputs::Lcd();
 #endif
