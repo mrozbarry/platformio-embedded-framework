@@ -1,5 +1,6 @@
 #include <Lifecycle.hpp>
 #include <Message.hpp>
+#include <outputs/Output.hpp>
 
 #pragma once
 
@@ -19,11 +20,12 @@ class Application : public Lifecycle
     void queue(Message *message);
     void handleMessages(unsigned long ms);
 
-  protected:
-    static Application  *app;
+    virtual const Outputs::Output *getOutput();
 
+  protected:
     virtual void publish(Message *message);
 
+    static Application  *app;
     Message             *messageQueue[APPLICATION_MESSAGE_QUEUE_SIZE];
 
 };

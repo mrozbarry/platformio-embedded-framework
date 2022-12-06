@@ -78,5 +78,10 @@ void Application::handleMessages(unsigned long ms)
   }
 }
 
+const Outputs::Output *Application::getOutput()
+{
+  return NULL;
+}
+
 void Application::publish(Message *message)
 {}

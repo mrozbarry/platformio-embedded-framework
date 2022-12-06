@@ -20,6 +20,7 @@ namespace Pages {
           Render *clear();
           Render *move(uint8_t x, uint8_t y);
           Render *write(const char *text);
+          Render *write(const char character);
 
           MessageGroup  *group;
       };

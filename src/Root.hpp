@@ -16,6 +16,8 @@ class Root : public Application
     void init(unsigned long ms) override;
     void tick(unsigned long ms) override;
 
+    const Outputs::Output *getOutput() override;
+
   protected:
     void publish(Message *message) override;
 

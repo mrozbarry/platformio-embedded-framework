@@ -55,6 +55,11 @@ void Root::tick(unsigned long ms)
   });
 }
 
+const Outputs::Output *Root::getOutput()
+{
+  return (Outputs::Output *)this->items[1];
+}
+
 void Root::publish(Message *message)
 {
   if (message == NULL) return;

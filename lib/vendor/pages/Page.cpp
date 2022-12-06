@@ -52,6 +52,12 @@ namespace Pages {
     return this;
   }
 
+  Page::Render *Page::Render::write(const char character)
+  {
+    const char str[2] = {character, 0};
+    return write((const char *)&str[0]);
+  }
+
   void Page::show()
   {
     isMounted = true;
