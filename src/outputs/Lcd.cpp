@@ -15,6 +15,9 @@ namespace Outputs {
   Lcd::~Lcd()
   {
   }
+  
+  void Lcd::render(Components::Base &layout)
+  {}
 
   void Lcd::backlight(bool toggle)
   {

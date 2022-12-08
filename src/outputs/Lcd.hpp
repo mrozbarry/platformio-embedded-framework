@@ -47,6 +47,8 @@ namespace Outputs {
       Lcd();
       ~Lcd();
 
+      void render(Components::Base &layout) override;
+
       void backlight(bool toggle) override;
       void cursor(bool toggle) override;
       void blink(bool toggle) override;

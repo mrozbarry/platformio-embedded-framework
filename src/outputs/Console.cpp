@@ -6,30 +6,18 @@
 namespace Outputs {
   Console::Console(uint8_t width, uint8_t height)
     : Output(width, height)
-    , buffer(NULL)
+    , buffer(width, height)
     , dirty(false)
     , cursorX(0)
     , cursorY(0)
     , blinkAt(0)
     , cursorBlinkShow(false)
   {
-    buffer = new char*[height];
-    for (uint8_t y = 0; y < height; y++) {
-      buffer[y] = new char[width + 1];
-    }
-    clear();
+    buffer.clear();
   }
 
   Console::~Console()
   {
-    if (buffer == NULL) return;
-
-    for(uint8_t row = 0; row < height; row++) {
-      if (buffer[row] == NULL) continue;
-      delete[] buffer[row];
-      buffer[row] = NULL;
-    }
-    delete[] buffer;
   }
 
   void Console::init(unsigned long ms)
@@ -55,31 +43,18 @@ namespace Outputs {
     std::cout << "\x1B[2J" << "\x1B[H";
 #endif
 
-    drawBar();
-    for (uint8_t r = 0; r < height; r++) {
-      std::cout << '|';
-      for (uint8_t c = 0; c < width; c++) {
-        if (cursorX == c && cursorY == r && cursorBlinkShow) {
-          std::cout << '_';
-        } else {
-          std::cout << buffer[r][c];
-        }
-      }
-      std::cout << '|' << std::endl;
-    }
-    drawBar();
+    buffer.debug();
 
     dirty = false;
   }
 
+  void Console::render(Components::Base &layout)
+  {
+  }
+
   void Console::clear()
   {
-    for(uint8_t row = 0; row < height; row++) {
-      buffer[row][width] = 0;
-      for(uint8_t col = 0; col < width; col++) {
-        buffer[row][col] = ' ';
-      }
-    }
+    buffer.clear();
     dirty = true;
   }
   
@@ -91,34 +66,8 @@ namespace Outputs {
   
   void Console::write(const char *string)
   {
-    uint8_t startX = cursorX;
-    for (uint8_t i = 0; i < width; i++) {
-      uint8_t c = startX + i;
-      if (c >= width) {
-        cursorY += 1;
-        cursorX = 0;
-      }
-      if (cursorY >= height) {
-        cursorY = 0;
-      }
-      if (string[i] == 0) break;
-
-      cursorX = c;
-      if (buffer[cursorY][cursorX] == string[i]) continue;
-
-      buffer[cursorY][cursorX] = string[i];
-      dirty = true;
-    }
-    cursorX++;
-  }
-
-  void Console::drawBar()
-  {
-    std::cout << '+';
-    for (uint8_t x = 0; x < width; x++) {
-      std::cout << '-';
-    }
-    std::cout << '+' << std::endl;
+    uint8_t len = buffer.print(cursorX, cursorY, string);
+    cursorX += len;
   }
 };
 

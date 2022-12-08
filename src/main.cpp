@@ -5,6 +5,11 @@
 #include <pages/Boot.hpp>
 #include <Navigator.hpp>
 
+#include <OutputBuffer.hpp>
+#include <components/Columns.hpp>
+#include <components/Rows.hpp>
+#include <components/Text.hpp>
+
 #ifdef NATIVE_BUILD
 #include <ctime>
 #endif
@@ -36,6 +41,19 @@ void loop()
 #ifdef NATIVE_BUILD
 int main()
 {
+  //OutputBuffer buffer = OutputBuffer(20, 4);
+  //Components::Rows layout = Components::Rows(
+  //    new Components::Columns(
+  //      new Components::Text("Lft", Components::Text::Align::LEFT),
+  //      new Components::Text("Mid", Components::Text::Align::CENTER),
+  //      new Components::Text("Rgt", Components::Text::Align::RIGHT)
+  //    ),
+  //    new Components::Text("Long and centered", Components::Text::Align::CENTER)
+  //);
+  //layout.render(buffer);
+  //buffer.debug();
+  //return 0;
+
   srand(time(NULL));
   setup();
   while (true) {

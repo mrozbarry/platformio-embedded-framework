@@ -1,4 +1,5 @@
 #include <outputs/Output.hpp>
+#include <OutputBuffer.hpp>
 
 #pragma once
 
@@ -7,23 +8,23 @@ namespace Outputs {
   {
     public:
       Console(uint8_t width = OUTPUT_WIDTH, uint8_t height = OUTPUT_HEIGHT);
-      ~Console();
+      virtual ~Console();
 
-      void init(unsigned long ms);
-      void tick(unsigned long ms);
+      void init(unsigned long ms) override;
+      void tick(unsigned long ms) override;
+      void render(Components::Base &layout) override;
 
-      void clear();
-      void move(uint8_t x, uint8_t y);
-      void write(const char *string);
+      void clear() override;
+      void move(uint8_t x, uint8_t y) override;
+      void write(const char *string) override;
 
     protected:
-      void drawBar();
-
-      char          **buffer;
+      OutputBuffer  buffer;
       bool          dirty;
 
       uint8_t       cursorX;
       uint8_t       cursorY;
+      char          cursorOver;
       unsigned long blinkAt;
       bool          cursorBlinkShow;
   };

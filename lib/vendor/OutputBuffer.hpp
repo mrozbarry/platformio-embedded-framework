@@ -10,7 +10,7 @@ class OutputBuffer {
     ~OutputBuffer();
 
     void clear();
-    uint8_t print(uint8_t x, uint8_t y, const char *text);
+    uint8_t print(int8_t x, int8_t y, const char *text);
 
     char *offset(uint8_t x, uint8_t y);
 

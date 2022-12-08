@@ -1,6 +1,9 @@
 #if defined(NATIVE_BUILD) && defined(DEBUG)
 #include <iostream>
 #endif
+#ifdef NATIVE_BUILD
+#include <stdexcept>
+#endif
 
 #include <OutputBuffer.hpp>
 
@@ -12,7 +15,9 @@ OutputBuffer::OutputBuffer(uint8_t width, uint8_t height)
   , ownsBuffer(true)
 {
   if (!isValid) {
-    // should probably throw
+#ifdef NATIVE_BUILD
+    throw std::invalid_argument("OutputBuffer must have a height and width");
+#endif
     return;
   }
   buffer = new char*[height];
@@ -25,12 +30,14 @@ OutputBuffer::OutputBuffer(uint8_t width, uint8_t height)
 OutputBuffer::OutputBuffer(OutputBuffer &other, uint8_t x, uint8_t y, uint8_t width, uint8_t height)
   : width(width)
   , height(height)
-  , isValid(width <= other.width && height <= other.height && x < (other.width - 1) && y < (other.height - 1))
+  , isValid(width <= other.width && height <= other.height && x < other.width && y < other.height)
   , buffer(NULL)
   , ownsBuffer(false)
 {
   if (!isValid) {
-    // should probably throw
+#ifdef NATIVE_BUILD
+    throw std::invalid_argument("OutputBuffer sub-buffer must not exceed parent buffer size");
+#endif
     return;
   }
   buffer = new char*[height];
@@ -61,17 +68,25 @@ void OutputBuffer::clear()
   }
 }
 
-uint8_t OutputBuffer::print(uint8_t x, uint8_t y, const char *text)
+uint8_t OutputBuffer::print(int8_t x, int8_t y, const char *text)
 {
   if (y >= height) return 0;
 
+  uint8_t textLength = strlen(text);
   uint8_t length = 0;
-  for(uint8_t i = 0; i < width; i++) {
-    if (x + i >= width) break;
-    if (text[i] == 0) break;
-
-    buffer[y][x + i] = text[i];
+  uint8_t index = 0;
+  int8_t col = x;
+  while (col < 0) {
+    index++;
+    col++;
+  }
+  while (index < textLength) {
+    if (text[index] == 0) break;
+    if (col > width) break;
+    buffer[y][col] = text[index];
+    index++;
     length++;
+    col++;
   }
 
   return length;
@@ -88,14 +103,22 @@ char *OutputBuffer::offset(uint8_t x, uint8_t y)
 void OutputBuffer::debug()
 {
 #if defined(NATIVE_BUILD) && defined(DEBUG)
-  std::cout << "OutputBuffer:" << std::endl;
+  std::cout << "┌";
+  for(uint8_t c = 0; c < width; c++) {
+    std::cout << "─";
+  }
+  std::cout << "┐" << std::endl;
   for(uint8_t r = 0; r < height; r++) {
-    std::cout << '|';
+    std::cout << "│";
     for(uint8_t c = 0; c < width; c++) {
       std::cout << (char)buffer[r][c];
     }
-    std::cout << '|' << std::endl;
+    std::cout << "│" << std::endl;
   }
-  std::cout << "/--------" << std::endl;
+  std::cout << "└";
+  for(uint8_t c = 0; c < width; c++) {
+    std::cout << "─";
+  }
+  std::cout << "┘" << std::endl;
 #endif
 }

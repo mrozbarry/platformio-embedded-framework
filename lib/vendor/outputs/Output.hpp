@@ -1,6 +1,7 @@
 #include <Lifecycle.hpp>
 #include <Message.hpp>
 #include <Platform.hpp>
+#include <components/Base.hpp>
 
 #pragma once
 
@@ -64,10 +65,11 @@ namespace Outputs {
       };
 
       Output(uint8_t width = OUTPUT_WIDTH, uint8_t height = OUTPUT_HEIGHT);
-      ~Output();
+      virtual ~Output();
 
       void init(unsigned long);
       void message(Message *message);
+      virtual void render(Components::Base &layout);
 
     private:
       void onBacklight(Backlight *backlightMessage);

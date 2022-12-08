@@ -73,6 +73,9 @@ namespace Outputs {
     }
   }
 
+  void Output::render(Components::Base &layout)
+  {}
+
   void Output::onBacklight(Backlight *backlightMessage)
   {
     backlight(backlightMessage->toggle);
