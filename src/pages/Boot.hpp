@@ -32,13 +32,13 @@ namespace Pages {
         Page::tick(ms);
 
         if (!indoor) {
-          return Application::get()->queue(
+          return app()->queue(
             new Inputs::TempSensor::Read(Inputs::TempSensor::Type::INDOOR)
           );
         }
 
         if (!outdoor) {
-          return Application::get()->queue(
+          return app()->queue(
             new Inputs::TempSensor::Read(Inputs::TempSensor::Type::OUTDOOR)
           );
         }
@@ -60,18 +60,16 @@ namespace Pages {
       {
         if (indoor && outdoor) return;
 
-        if (resultMsg->which == Inputs::TempSensor::Type::INDOOR) {
-          updateState([this]() {
+        updateState([this, resultMsg]() {
+          if (resultMsg->which == Inputs::TempSensor::Type::INDOOR) {
             this->indoor = true;
-          });
-        } else {
-          updateState([this]() {
+          } else {
             this->outdoor = true;
-          });
-        }
+          }
+        });
 
         if (indoor && outdoor) {
-          Application::get()->queue(new Navigator::ShowPage(new Pages::Splash(5000), now + milliseconds));
+          app()->queue(new Navigator::ShowPage(new Pages::Splash(5000), now + milliseconds));
           return;
         }
       }

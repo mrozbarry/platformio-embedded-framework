@@ -1,10 +1,16 @@
 #include <Lifecycle.hpp>
+#include <Application.hpp>
 
 Lifecycle::Lifecycle()
 {}
 
 Lifecycle::~Lifecycle()
 {}
+
+Application *Lifecycle::app()
+{
+  return Application::get();
+}
 
 void Lifecycle::init(unsigned long ms)
 {}

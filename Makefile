@@ -1,3 +1,5 @@
+.phony: native
+
 debug:
 	pio run -e native-debug && .pio/build/native-debug/program
 

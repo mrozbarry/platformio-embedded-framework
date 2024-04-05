@@ -30,7 +30,8 @@ namespace Pages {
 
       virtual void show();
       virtual void hide();
-      virtual Render *render();
+      // virtual Render *render();
+      virtual Components::Base *render();
 
       void tick(unsigned long ms) override;
 
